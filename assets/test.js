@@ -7,8 +7,6 @@ function game(n1, n2) {
     gameEnd = true;
   } else if (typeof n1 !== "number" || typeof n2 !== "number") {
     throw new TypeError("Введите число");
-  } else if (n1 < 0 || n2 < 0) {
-    throw new RangeError("Введите число");
   } else {
     alert("Попробуй ещё раз");
   }
