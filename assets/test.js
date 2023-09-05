@@ -1,3 +1,8 @@
+function randomInteger(min, max) {
+  let rand = min + Math.random() * (max - min);
+  return Math.round(rand);
+}
+
 let gameEnd;
 
 let gameChoise = +prompt("Выберете игру: 1 - умножение, 2 - угадай число");
@@ -29,17 +34,41 @@ function game2() {
   }
 }
 
-if (gameChoise === 1) {
-  for (let i = 0; i < 3 && !gameEnd; ++i) {
-    game(
-      (n1 = Math.trunc(Math.random() * 11)),
-      (n2 = Math.trunc(Math.random() * 11))
-    );
+function menu(gameChoise) {
+  if (gameChoise === 1) {
+    for (let i = 0; i < 3 && !gameEnd; ++i) {
+      game((n1 = randomInteger(1, 10)), (n2 = randomInteger(1, 10)));
+    }
+  } else if (gameChoise === 2) {
+    // for (let i = 0; i < 3 && !gameEnd; i++) {
+    //   game3();
+    // }
+    game3();
+  } else {
+    alert("Данная игра в розработке");
   }
-} else if (gameChoise === 2) {
-  for (let i = 0; i < 3 && !gameEnd; i++) {
-    game2();
-  }
-} else {
-  alert("Данная игра в розработке");
 }
+
+function game3() {
+  const words = ["Кот", "Дисперсия", "Олег"];
+  let randomIndex = randomInteger(0, 2);
+  let lives = 6;
+  const guess = words[randomIndex];
+  let underscores = "_ ".repeat(guess.length);
+  const firstLatters = guess[0];
+  let userAnsw = prompt(`Guess a word: ${underscores}`);
+  for (let i = 0; i < 6 && !gameEnd; i++) {
+    if (userAnsw === guess) {
+      alert(`Правильно это слово ${guess} `);
+      gameEnd = true;
+    } else {
+      userAnsw = prompt(
+        `Guess a word: ${underscores} \n у вас осталось ${lives} \n первая буква ${firstLatters}`
+      );
+      console.log(guess);
+      lives--;
+    }
+  }
+  alert(`Вы проиграли( \n слово было ${guess}`);
+}
+menu(gameChoise);
